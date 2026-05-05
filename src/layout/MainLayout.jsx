@@ -1,9 +1,13 @@
-import React from 'react'
+import { Outlet } from "react-router-dom";
 
-const MainLayout = () => {
+function BlankLayout() {
   return (
-    <div>MainLayout</div>
-  )
+    <main className="min-h-screen w-screen flex items-center justify-center bg-gray-800">
+      <div className="w-full min-h-screen flex items-center justify-center bg-gray-100">
+        <Outlet />
+      </div>
+    </main>
+  );
 }
 
-export default MainLayout
+export default BlankLayout;
