@@ -26,7 +26,7 @@ const Navbar = () => {
         <a href="/form" className="hover:text-[#F5A623] transition-colors">
           Buat Laporan
         </a>
-        <a href="#" className="hover:text-[#F5A623] transition-colors">
+        <a href="/history" className="hover:text-[#F5A623] transition-colors">
           Riwayat
         </a>
         <div className="w-px h-4 bg-white/30 mx-1"></div>

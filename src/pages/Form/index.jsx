@@ -39,11 +39,9 @@ const index = () => {
           <SelectContent>
             <SelectGroup>
               <SelectLabel>Fruits</SelectLabel>
-              <SelectItem value="apple">Apple</SelectItem>
-              <SelectItem value="banana">Banana</SelectItem>
-              <SelectItem value="blueberry">Blueberry</SelectItem>
-              <SelectItem value="grapes">Grapes</SelectItem>
-              <SelectItem value="pineapple">Pineapple</SelectItem>
+              <SelectItem value="apple">Banjir</SelectItem>
+              <SelectItem value="banana">Jalan Umum</SelectItem>
+              <SelectItem value="blueberry">Taman</SelectItem>
             </SelectGroup>
           </SelectContent>
         </Select>
@@ -55,9 +53,18 @@ const index = () => {
           <Textarea
             id="text"
             placeholder="Type your message here."
-            disabled
-            className="mb-3 px-3 py-3 border border-black rounded-lg bg-white text-gray-600 placeholder:text-gray-600"
+            className="mb-3 px-3 py-10 border border-black rounded-lg bg-white text-gray-600 placeholder:text-gray-600"
           />
+        </Field>
+
+        <Field>
+          <FieldLabel htmlFor="input-demo-api-key">Upload File</FieldLabel>
+          <input
+            id="file"
+            accept="image/*"
+            className="w-[300px] mb-3 px-3 py-3 border border-black rounded-lg bg-white text-gray-600 placeholder:text-gray-600"
+          />
+          <FieldDescription>Upload foto bukti laporan</FieldDescription>
         </Field>
       </form>
     </div>

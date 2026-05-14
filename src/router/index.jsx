@@ -9,6 +9,7 @@ import Register from "@/pages/Auth/Register";
 import ForgotPassword from "@/pages/Auth/ForgotPassword";
 import LandingPage from "@/pages/LandingPages/LandingPage";
 import Form from "@/pages/Form";
+import History from "@/pages/History/index";
 
 export const router = createBrowserRouter([
   {
@@ -25,5 +26,11 @@ export const router = createBrowserRouter([
     children: [{ path: "/", element: <LandingPage /> }],
   },
 
-  { element: <MainLayout />, children: [{ path: "/form", element: <Form /> }] },
+  {
+    element: <MainLayout />,
+    children: [
+      { path: "/form", element: <Form /> },
+      { path: "/history", element: <History /> },
+    ],
+  },
 ]);
