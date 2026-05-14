@@ -7,7 +7,7 @@ import BlankLayout from "@/layout/BlankLayout";
 import Login from "@/pages/Auth/Login";
 import Register from "@/pages/Auth/Register";
 import ForgotPassword from "@/pages/Auth/ForgotPassword";
-
+import LandingPage from "@/pages/LandingPages/LandingPage";
 import Form from "@/pages/Form";
 
 export const router = createBrowserRouter([
@@ -22,8 +22,8 @@ export const router = createBrowserRouter([
 
   {
     element: <MainLayout />,
-    children: [
-      { path: "/form", element: <Form /> },
-    ],
+    children: [{ path: "/", element: <LandingPage /> }],
   },
+
+  { element: <MainLayout />, children: [{ path: "/form", element: <Form /> }] },
 ]);

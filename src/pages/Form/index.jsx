@@ -49,11 +49,14 @@ const index = () => {
         </Select>
 
         <Field>
-          <FieldLabel htmlFor="input-demo-api-key">Keterangan Detail</FieldLabel>
+          <FieldLabel htmlFor="input-demo-api-key">
+            Keterangan Detail
+          </FieldLabel>
           <Textarea
-            id="textarea-disabled"
+            id="text"
             placeholder="Type your message here."
             disabled
+            className="mb-3 px-3 py-3 border border-black rounded-lg bg-white text-gray-600 placeholder:text-gray-600"
           />
         </Field>
       </form>
