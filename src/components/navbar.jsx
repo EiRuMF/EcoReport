@@ -5,7 +5,7 @@ import { STATS_DATA } from "@/constant/dataLP";
 
 const Navbar = () => {
   return (
-    <nav className="relative z-50 flex items-center justify-between px-6 py-8 w-full max-w-7xl mx-auto">
+    <nav className="sticky z-50 flex items-center justify-between px-6 py-8 w-full max-w-7xl mx-auto">
       <div className="flex items-center gap-3">
         <div className="w-12 h-12 rounded-xl flex items-center justify-center bg-white p-2 shadow-sm">
           <img
@@ -20,17 +20,14 @@ const Navbar = () => {
       </div>
 
       <div className="hidden md:flex items-center gap-6 px-8 py-3 bg-white/10 backdrop-blur-md rounded-full shadow-sm text-sm font-semibold text-white border border-white/10">
-        <a href="#" className="hover:text-[#F5A623] transition-colors">
+        <a href="/" className="hover:text-[#F5A623] transition-colors">
           Beranda
         </a>
-        <a href="#" className="hover:text-[#F5A623] transition-colors">
+        <a href="/form" className="hover:text-[#F5A623] transition-colors">
           Buat Laporan
         </a>
         <a href="#" className="hover:text-[#F5A623] transition-colors">
           Riwayat
-        </a>
-        <a href="#" className="hover:text-[#F5A623] transition-colors">
-          Admin
         </a>
         <div className="w-px h-4 bg-white/30 mx-1"></div>
         <a

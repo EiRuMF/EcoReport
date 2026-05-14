@@ -11,10 +11,10 @@ const Login = () => {
           action=""
           className="w-[500px] relative items-start bg-white rounded-xl justify-start text-black p-6"
         >
-          <h1 className="text-3xl font-bold text-[#1E3A8A] text-center mb-5">
+          <h1 className="text-3xl font-bold text-[#1E3A8A] text-center mb-5 font-poppins">
             Selamat Datang
           </h1>
-          <p className="text-gray-500 ">
+          <p className="text-gray-500 font-poppins">
             Halo!, Selamat datang mari lestarikan lingkungan kita
           </p>
           <p className="text-gray-500 mb-3">Go Green</p>

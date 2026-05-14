@@ -7,10 +7,10 @@ import BlankLayout from "@/layout/BlankLayout";
 import Login from "@/pages/Auth/Login";
 import Register from "@/pages/Auth/Register";
 import ForgotPassword from "@/pages/Auth/ForgotPassword";
-import LandingPage from "@/pages/Auth/LandingPage";
+import LandingPage from "@/pages/LandingPages/LandingPage";
+import Form from "@/pages/Form";
 
 export const router = createBrowserRouter([
-  { path: "/landing-page", element: <LandingPage /> },
   {
     element: <BlankLayout />,
     children: [
@@ -19,4 +19,11 @@ export const router = createBrowserRouter([
       { path: "/forgot-password", element: <ForgotPassword /> },
     ],
   },
+
+  {
+    element: <MainLayout />,
+    children: [{ path: "/", element: <LandingPage /> }],
+  },
+
+  { element: <MainLayout />, children: [{ path: "/form", element: <Form /> }] },
 ]);
