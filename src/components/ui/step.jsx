@@ -10,7 +10,7 @@ const Step = () => {
         </h2>
         <p className="text-white/90 mt-4 max-w-lg text-base md:text-lg font-medium">
           Proses sederhana yang dirancang agar siapa saja bisa melaporkan
-          masalah di lingkungan mereka.
+          masalah di lingkungan mereka
         </p>
       </div>
 
