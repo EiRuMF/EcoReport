@@ -8,13 +8,22 @@ import Login from "@/pages/Auth/Login";
 import Register from "@/pages/Auth/Register";
 import ForgotPassword from "@/pages/Auth/ForgotPassword";
 
+import Form from "@/pages/Form";
+
 export const router = createBrowserRouter([
   {
     element: <BlankLayout />,
     children: [
       { path: "/login", element: <Login /> },
       { path: "/register", element: <Register /> },
-      { path: "/forgot-password", element: <ForgotPassword /> }
+      { path: "/forgot-password", element: <ForgotPassword /> },
+    ],
+  },
+
+  {
+    element: <MainLayout />,
+    children: [
+      { path: "/form", element: <Form /> },
     ],
   },
 ]);
