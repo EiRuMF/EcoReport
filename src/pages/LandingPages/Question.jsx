@@ -32,7 +32,7 @@ const Contact = () => {
 
           {/* Tombol Kirim */}
           <Button className="w-full bg-[#2563EB] hover:bg-blue-700 text-white font-bold py-7 rounded-xl text-lg transition-colors shadow-md mt-2 font-sans tracking-normal">
-            Kirim Laporan
+            Kirim Pertanyaan
           </Button>
         </div>
       </div>

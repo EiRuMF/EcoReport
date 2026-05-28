@@ -9,6 +9,7 @@ import Register from "@/pages/Auth/Register";
 import ForgotPassword from "@/pages/Auth/ForgotPassword";
 import LandingPage from "@/pages/LandingPages/LandingPage";
 import Form from "@/pages/Form";
+import ProfilePage from "@/pages/Profile/ProfilePage";
 
 export const router = createBrowserRouter([
   {
@@ -22,7 +23,11 @@ export const router = createBrowserRouter([
 
   {
     element: <MainLayout />,
-    children: [{ path: "/", element: <LandingPage /> }],
+    children: [
+      { path: "/", element: <LandingPage /> },
+      { path: "/profil", element: <ProfilePage /> }
+    ],
+    
   },
 
   { element: <MainLayout />, children: [{ path: "/form", element: <Form /> }] },
