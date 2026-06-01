@@ -12,10 +12,12 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { Textarea } from "@/components/ui/textarea";
+import Backgroundshort from "@/components/backgroundshort.jsx";
 
 const index = () => {
   return (
     <div>
+      <Backgroundshort />
       <form
         action=""
         className="w-[1200px] relative items-start bg-white rounded-xl justify-start text-black p-6"

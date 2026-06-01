@@ -31,7 +31,7 @@ const Navbar = () => {
         </a>
         <div className="w-px h-4 bg-white/30 mx-1"></div>
         <a
-          href="/login"
+          href="/profile"
           className="flex items-center gap-2 hover:text-[#F5A623] transition-colors"
         >
           <FiUser className="w-5 h-5" />
