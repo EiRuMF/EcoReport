@@ -33,4 +33,16 @@ export const router = createBrowserRouter([
       { path: "/history", element: <History /> },
     ],
   },
+
+  // ADMIN
+  // {
+  //   element: <MainLayout />,
+  //   children: [
+  //     { path: "/admin", element:  },
+  //     { path: "/admin/data-laporan", element:  },
+  //     // { path: "/admin/data-laporan/detail", element:  }
+  //   ],
+  // },
+
+
 ]);

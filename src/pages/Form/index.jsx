@@ -33,12 +33,12 @@ const index = () => {
           <FieldLabel htmlFor="input-demo-api-key" className="mb-2">
             Kategori Laporan
           </FieldLabel>
-          <SelectTrigger className="w-[300px] mb-3 px-3 py-3 border border-black rounded-lg bg-white text-gray-600 placeholder:text-gray-600">
-            <SelectValue placeholder="Select a fruit" />
+          <SelectTrigger className="w-[300px] mb-3 px-3 py-6 border border-black rounded-lg bg-white text-gray-600 placeholder:text-gray-600">
+            <SelectValue placeholder="Pilih kategori masalah" />
           </SelectTrigger>
           <SelectContent>
             <SelectGroup>
-              <SelectLabel>Fruits</SelectLabel>
+              <SelectLabel>Masalah</SelectLabel>
               <SelectItem value="apple">Banjir</SelectItem>
               <SelectItem value="banana">Jalan Umum</SelectItem>
               <SelectItem value="blueberry">Taman</SelectItem>
@@ -58,14 +58,21 @@ const index = () => {
         </Field>
 
         <Field>
-          <FieldLabel htmlFor="input-demo-api-key">Upload File</FieldLabel>
+          <FieldLabel>Upload File</FieldLabel>
           <input
-            id="file"
+            type="file"
             accept="image/*"
-            className="w-[300px] mb-3 px-3 py-3 border border-black rounded-lg bg-white text-gray-600 placeholder:text-gray-600"
+            className="w-30 mb-3 px-3 py-3 border border-black rounded-lg bg-white text-gray-600 placeholder:text-gray-600"
           />
           <FieldDescription>Upload foto bukti laporan</FieldDescription>
         </Field>
+
+        <Button
+          type="submit"
+          className="mt-10 w-full p-6 bg-[#2563EB] rounded-2xl text-white"
+        >
+          Submit
+        </Button>
       </form>
     </div>
   );
