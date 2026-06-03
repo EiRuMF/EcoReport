@@ -23,6 +23,12 @@ const Contact = () => {
             className="w-full border-2 border-gray-100 rounded-xl px-5 py-4 text-sm md:text-base font-bold text-gray-700 placeholder-gray-400 focus:outline-none focus:border-blue-500 transition-colors font-sans"
           />
 
+          <input
+            type="email"
+            placeholder="Email Anda"
+            className="w-full border-2 border-gray-100 rounded-xl px-5 py-4 text-sm md:text-base font-bold text-gray-700 placeholder-gray-400 focus:outline-none focus:border-blue-500 transition-colors font-sans"
+          />
+
           {/* Pertanyaan */}
           <textarea
             placeholder="Pertanyaan Anda"

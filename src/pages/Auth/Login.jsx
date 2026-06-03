@@ -1,14 +1,50 @@
 import React from "react";
+import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Field, FieldDescription, FieldLabel } from "@/components/ui/field";
 import { Input } from "@/components/ui/input";
 
 const Login = () => {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState("");
+
+  async function handleSubmit(e) {
+    e.preventDefault();
+    setLoading(true);
+    setError("");
+
+    try {
+      const res = await api.post("/api/auth/login", {
+        name,
+        email,
+        phone_number,
+        password,
+      });
+
+      const data = await res.json();
+
+      if (!res.ok) {
+        setError(data.message || "Email atau password salah");
+        return;
+      }
+
+      localStorage.setItem("token", data.token);
+      localStorage.setItem("user", JSON.stringify(data.user));
+      window.location.href = "/";
+    } catch (err) {
+      setError("Error");
+    } finally {
+      setLoading(false);
+    }
+  }
+
   return (
     <div className="w-full h-screen flex justify-center items-center">
       <div>
         <form
-          action=""
+          onSubmit={handleSubmit}
           className="w-[500px] relative items-start bg-white rounded-xl justify-start text-black p-6"
         >
           <h1 className="text-3xl font-bold text-[#1E3A8A] text-center mb-5 font-poppins">
@@ -25,6 +61,7 @@ const Login = () => {
               id="input-demo-api-key"
               type="email"
               placeholder="Enter Email/Phone No"
+              onChange={(e) => setEmail(e.target.value)}
               className="w-full mb-3 px-3 py-3 border border-black rounded-lg bg-white text-gray-600 placeholder:text-gray-600"
             />
           </Field>
@@ -35,6 +72,7 @@ const Login = () => {
               id="input-demo-api-key"
               type="password"
               placeholder="Enter Password"
+              onChange={(e) => setPassword(e.target.value)}
               className="w-full mb-3 px-3 py-3 border border-black rounded-lg bg-white text-gray-600 placeholder:text-gray-600"
             />
           </Field>
@@ -53,7 +91,7 @@ const Login = () => {
             type="submit"
             className="w-full p-6 bg-[#2563EB] rounded-2xl text-white"
           >
-            Login
+            {loading ? "Loading..." : "Login"}
           </Button>
 
           <p className="mt-3 text-gray-500">
