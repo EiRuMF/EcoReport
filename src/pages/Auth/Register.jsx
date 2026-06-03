@@ -15,35 +15,60 @@ const Register = () => {
 
   async function handleSubmit(e) {
     e.preventDefault();
+
+    console.log("handleSubmit dipanggil"); 
+    console.log({ name, email, phone_number, password }); 
+
+    if (!name.trim()) {
+      setError("Nama tidak boleh kosong");
+      return;
+    }
+    if (!email.trim()) {
+      setError("Email tidak boleh kosong");
+      return;
+    }
+    if (!phone_number.trim()) {
+      setError("Nomor HP tidak boleh kosong");
+      return;
+    }
+    if (!password.trim()) {
+      setError("Password tidak boleh kosong");
+      return;
+    }
+    if (password.length < 8) {
+      setError("Password minimal 8 karakter");
+      return;
+    }
     setLoading(true);
     setError("");
     setSuccess(false);
-   try {
-     const res = await fetch(
-       "https://api-ecoreport.vercel.app/api/auth/register",
-       {
-         method: "POST",
-         headers: { "Content-Type": "application/json" },
-         body: JSON.stringify({ name, email, phone_number, password }),
-       },
-     );
 
-     const data = await res.json();
+    try {
+      const res = await fetch(
+        "https://api-ecoreport.vercel.app/api/auth/register",
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ name, email, phone_number, password }),
+        },
+      );
 
-     if (!res.ok) {
-       setError(data.message || "Gagal membuat akun");
-       return;
-     }
+      const data = await res.json();
 
-     setSuccess(true);
-     setTimeout(() => {
-       window.location.href = "/login";
-     }, 2000);
-   } catch (err) {
-     setError("Tidak dapat terhubung ke server");
-   } finally {
-     setLoading(false);
-   }
+      if (!res.ok) {
+        setError(data.message || "Gagal membuat akun");
+        return;
+      }
+
+      setSuccess(true);
+      setTimeout(() => {
+        window.location.href = "/login";
+      }, 2000);
+    } catch (err) {
+      setError("Tidak dapat terhubung ke server");
+    } finally {
+      setLoading(false);
+    }
   }
 
   return (
@@ -61,10 +86,22 @@ const Register = () => {
           </p>
           <p className="text-gray-500 mb-3 text-sm">Go Green</p>
 
+          {error && (
+            <p className="mb-3 text-sm text-red-500 bg-red-50 border border-red-200 rounded-lg px-3 py-2">
+              ❌ {error}
+            </p>
+          )}
+
+          {success && (
+            <p className="mb-3 text-sm text-green-600 bg-green-50 border border-green-200 rounded-lg px-3 py-2">
+              ✅ Akun berhasil dibuat! Mengarahkan ke halaman login...
+            </p>
+          )}
+
           <Field>
-            <FieldLabel htmlFor="input-demo-api-key">Full Name</FieldLabel>
+            <FieldLabel htmlFor="input-name">Full Name</FieldLabel>
             <Input
-              id="input-demo-api-key"
+              id="input-name"
               type="text"
               placeholder="Enter Username"
               onChange={(e) => setName(e.target.value)}
@@ -73,9 +110,9 @@ const Register = () => {
           </Field>
 
           <Field>
-            <FieldLabel htmlFor="input-demo-api-key">Email</FieldLabel>
+            <FieldLabel htmlFor="input-email">Email</FieldLabel>
             <Input
-              id="input-demo-api-key"
+              id="input-email"
               type="email"
               placeholder="Enter Email"
               onChange={(e) => setEmail(e.target.value)}
@@ -84,9 +121,9 @@ const Register = () => {
           </Field>
 
           <Field>
-            <FieldLabel htmlFor="input-demo-api-key">Phone number</FieldLabel>
+            <FieldLabel htmlFor="input-phone">Phone number</FieldLabel>
             <Input
-              id="input-demo-api-key"
+              id="input-phone"
               type="number"
               placeholder="Enter Phone Number"
               onChange={(e) => setPhone_number(e.target.value)}
@@ -95,9 +132,9 @@ const Register = () => {
           </Field>
 
           <Field>
-            <FieldLabel htmlFor="input-demo-api-key">Password</FieldLabel>
+            <FieldLabel htmlFor="input-password">Password</FieldLabel>
             <Input
-              id="input-demo-api-key"
+              id="input-password"
               type="password"
               placeholder="Enter Password"
               onChange={(e) => setPassword(e.target.value)}
