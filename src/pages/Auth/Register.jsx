@@ -18,33 +18,32 @@ const Register = () => {
     setLoading(true);
     setError("");
     setSuccess(false);
+   try {
+     const res = await fetch(
+       "https://api-ecoreport.vercel.app/api/auth/register",
+       {
+         method: "POST",
+         headers: { "Content-Type": "application/json" },
+         body: JSON.stringify({ name, email, phone_number, password }),
+       },
+     );
 
-    try {
-      const res = await fetch(
-        "https://api-ecoreport.vercel.app/api/auth/register",
-        {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ name, email, phone_number, password }),
-        },
-      );
+     const data = await res.json();
 
-      const data = await res.json();
+     if (!res.ok) {
+       setError(data.message || "Gagal membuat akun");
+       return;
+     }
 
-      if (!res.ok) {
-        setError(data.message || "Gagal membuat");
-        return;
-      }
-
-      setSuccess(true);
-      setTimeout(() => {
-        window.location.href = "/login";
-      }, 2000);
-    } catch (err) {
-      setError("Error");
-    } finally {
-      setLoading(false);
-    }
+     setSuccess(true);
+     setTimeout(() => {
+       window.location.href = "/login";
+     }, 2000);
+   } catch (err) {
+     setError("Tidak dapat terhubung ke server");
+   } finally {
+     setLoading(false);
+   }
   }
 
   return (
@@ -61,20 +60,6 @@ const Register = () => {
             Halo!, Selamat datang mari lestarikan lingkungan kita
           </p>
           <p className="text-gray-500 mb-3 text-sm">Go Green</p>
-
-          {/* Notifikasi error */}
-          {error && (
-            <p className="mb-3 text-sm text-red-500 bg-red-50 border border-red-200 rounded-lg px-3 py-2">
-              ❌ {error}
-            </p>
-          )}
-
-          {/* Notifikasi sukses */}
-          {success && (
-            <p className="mb-3 text-sm text-green-600 bg-green-50 border border-green-200 rounded-lg px-3 py-2">
-              ✅ Akun berhasil dibuat! Mengarahkan ke halaman login...
-            </p>
-          )}
 
           <Field>
             <FieldLabel htmlFor="input-demo-api-key">Full Name</FieldLabel>
