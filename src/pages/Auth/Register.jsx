@@ -1,8 +1,8 @@
-import React from "react";
-import { useState } from "react";
+import React, { useState } from "react";
 import { Button } from "@/components/ui/button";
-import { Field, FieldDescription, FieldLabel } from "@/components/ui/field";
+import { Field, FieldLabel } from "@/components/ui/field";
 import { Input } from "@/components/ui/input";
+import api from "../../../axios";
 
 const Register = () => {
   const [name, setName] = useState("");
@@ -16,9 +16,7 @@ const Register = () => {
   async function handleSubmit(e) {
     e.preventDefault();
 
-    console.log("handleSubmit dipanggil");
-    console.log({ name, email, phone_number, password });
-
+    // Validasi
     if (!name.trim()) {
       setError("Nama tidak boleh kosong");
       return;
@@ -27,7 +25,7 @@ const Register = () => {
       setError("Email tidak boleh kosong");
       return;
     }
-    if (!phone_number.trim()) {
+    if (!String(phone_number).trim()) {
       setError("Nomor HP tidak boleh kosong");
       return;
     }
@@ -39,39 +37,33 @@ const Register = () => {
       setError("Password minimal 8 karakter");
       return;
     }
+
     setLoading(true);
     setError("");
     setSuccess(false);
 
     try {
-      const res = await fetch(
-        "https://api-ecoreport.vercel.app/api/auth/register",
-        {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ name, email, phone_number, password }),
-        },
-      );
+      const res = await api.post("/api/auth/register", {
+        name,
+        email,
+        phone_number,
+        password,
+      });
 
-      const data = await res.json();
-
-      if (!res.ok) {
-        setError(data.message || "Gagal membuat akun");
-        return;
-      }
-
-      // Di handleSubmit, ubah validasi phone_number
-      if (!String(phone_number).trim()) {
-        setError("Nomor HP tidak boleh kosong");
-        return;
-      }
-
+      console.log("Response:", res.data); // cek di console
       setSuccess(true);
       setTimeout(() => {
         window.location.href = "/login";
       }, 2000);
     } catch (err) {
-      setError("Tidak dapat terhubung ke server");
+      console.log("Error:", err); // cek detail error di console
+
+      // Axios taruh response error di err.response
+      if (err.response) {
+        setError(err.response.data.message || "Gagal membuat akun");
+      } else {
+        setError("Tidak dapat terhubung ke server");
+      }
     } finally {
       setLoading(false);
     }
@@ -97,7 +89,6 @@ const Register = () => {
               ❌ {error}
             </p>
           )}
-
           {success && (
             <p className="mb-3 text-sm text-green-600 bg-green-50 border border-green-200 rounded-lg px-3 py-2">
               ✅ Akun berhasil dibuat! Mengarahkan ke halaman login...
@@ -127,10 +118,10 @@ const Register = () => {
           </Field>
 
           <Field>
-            <FieldLabel htmlFor="input-phone">Phone number</FieldLabel>
+            <FieldLabel htmlFor="input-phone">Phone Number</FieldLabel>
             <Input
               id="input-phone"
-              type="number"
+              type="tel"
               placeholder="Enter Phone Number"
               onChange={(e) => setPhone_number(e.target.value)}
               className="w-full mb-3 px-3 py-3 border border-black rounded-lg bg-white text-gray-600 placeholder:text-gray-600"
