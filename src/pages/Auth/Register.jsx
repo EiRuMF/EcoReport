@@ -29,12 +29,16 @@ const Register = () => {
       setError("Nomor HP tidak boleh kosong");
       return;
     }
+    if (phone_number.length <= 10) {
+      setError("Nomor HP minimal 10 karakter");
+      return;
+    }
     if (!password.trim()) {
       setError("Password tidak boleh kosong");
       return;
     }
     if (password.length < 6) {
-      setError("Password minimal 8 karakter");
+      setError("Password minimal 6 karakter");
       return;
     }
 
@@ -50,15 +54,14 @@ const Register = () => {
         password,
       });
 
-      console.log("Response:", res.data); // cek di console
+      console.log("Response:", res.data);
       setSuccess(true);
       setTimeout(() => {
         window.location.href = "/login";
       }, 2000);
     } catch (err) {
-      console.log("Error:", err); // cek detail error di console
+      console.log("Error:", err);
 
-      // Axios taruh response error di err.response
       if (err.response) {
         setError(err.response.data.message || "Gagal membuat akun");
       } else {
