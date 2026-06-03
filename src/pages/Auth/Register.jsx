@@ -61,6 +61,20 @@ const Register = () => {
           </p>
           <p className="text-gray-500 mb-3 text-sm">Go Green</p>
 
+          {/* Notifikasi error */}
+          {error && (
+            <p className="mb-3 text-sm text-red-500 bg-red-50 border border-red-200 rounded-lg px-3 py-2">
+              ❌ {error}
+            </p>
+          )}
+
+          {/* Notifikasi sukses */}
+          {success && (
+            <p className="mb-3 text-sm text-green-600 bg-green-50 border border-green-200 rounded-lg px-3 py-2">
+              ✅ Akun berhasil dibuat! Mengarahkan ke halaman login...
+            </p>
+          )}
+
           <Field>
             <FieldLabel htmlFor="input-demo-api-key">Full Name</FieldLabel>
             <Input
@@ -109,10 +123,10 @@ const Register = () => {
 
           <Button
             type="submit"
-            disabled={loading}
+            disabled={loading || success}
             className="w-full p-6 bg-[#2563EB] text-white"
           >
-            {loading ? "Loading..." : "Register"}
+            {loading ? "Loading..." : success ? "Berhasil! ✅" : "Register"}
           </Button>
         </form>
       </div>
