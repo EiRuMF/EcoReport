@@ -16,7 +16,7 @@ const Login = () => {
     setError("");
 
     try {
-      const res = await fetch("http://api-ecoreport.vercel.app/auth/login", {
+      const res = await fetch("http://api-ecoreport.vercel.app/api/auth/login", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ email, password }),
@@ -90,7 +90,7 @@ const Login = () => {
             type="submit"
             className="w-full p-6 bg-[#2563EB] rounded-2xl text-white"
           >
-            Login
+            {loading ? "Loading..." : "Login"}
           </Button>
 
           <p className="mt-3 text-gray-500">
