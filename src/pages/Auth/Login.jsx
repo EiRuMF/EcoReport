@@ -16,10 +16,11 @@ const Login = () => {
     setError("");
 
     try {
-      const res = await fetch("http://api-ecoreport.vercel.app/api/auth/login", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email, password }),
+      const res = await api.post("/api/auth/login", {
+        name,
+        email,
+        phone_number,
+        password,
       });
 
       const data = await res.json();
