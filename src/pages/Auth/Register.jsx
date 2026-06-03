@@ -16,8 +16,8 @@ const Register = () => {
   async function handleSubmit(e) {
     e.preventDefault();
 
-    console.log("handleSubmit dipanggil"); 
-    console.log({ name, email, phone_number, password }); 
+    console.log("handleSubmit dipanggil");
+    console.log({ name, email, phone_number, password });
 
     if (!name.trim()) {
       setError("Nama tidak boleh kosong");
@@ -35,7 +35,7 @@ const Register = () => {
       setError("Password tidak boleh kosong");
       return;
     }
-    if (password.length < 8) {
+    if (password.length < 6) {
       setError("Password minimal 8 karakter");
       return;
     }
@@ -57,6 +57,12 @@ const Register = () => {
 
       if (!res.ok) {
         setError(data.message || "Gagal membuat akun");
+        return;
+      }
+
+      // Di handleSubmit, ubah validasi phone_number
+      if (!String(phone_number).trim()) {
+        setError("Nomor HP tidak boleh kosong");
         return;
       }
 
