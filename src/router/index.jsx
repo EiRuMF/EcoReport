@@ -2,6 +2,7 @@ import { createBrowserRouter } from "react-router-dom";
 // Layout
 import MainLayout from "@/layout/MainLayout";
 import BlankLayout from "@/layout/BlankLayout";
+import AdminLayout from "@/layout/AdminLayout";
 
 // Pages
 import Login from "@/pages/Auth/Login";
@@ -12,6 +13,10 @@ import Form from "@/pages/Form";
 import ProfilePage from "@/pages/Profile/ProfilePage";
 import EventPage from "@/pages/Event pages/EventPage";
 import BlogPage from "@/pages/Blog Pages/BlogPage";
+import History from "@/pages/History/index";
+
+// Admin
+import HomeAdmin from "@/pages/Admin/Home/Index";
 
 export const router = createBrowserRouter([
   {
@@ -28,11 +33,27 @@ export const router = createBrowserRouter([
     children: [
       { path: "/", element: <LandingPage /> },
       { path: "/profil", element: <ProfilePage /> },
-      {path: "/event", element: <EventPage /> },
-      {path: "/blog", element: <BlogPage /> },
+      { path: "/event", element: <EventPage /> },
+      { path: "/blog", element: <BlogPage /> },
+      { path: "/profile", element: <ProfilePage /> },
     ],
-    
   },
 
-  { element: <MainLayout />, children: [{ path: "/form", element: <Form /> }] },
+  {
+    element: <MainLayout />,
+    children: [
+      { path: "/form", element: <Form /> },
+      { path: "/history", element: <History /> },
+    ],
+  },
+
+  //Admin
+  {
+    element: <AdminLayout />,
+    children: [
+      { path: "/admin", element: <HomeAdmin /> },
+      // { path: "/admin/data-laporan", element:  },
+      // { path: "/admin/data-laporan/detail", element:  }
+    ],
+  },
 ]);

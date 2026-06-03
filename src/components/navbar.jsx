@@ -26,16 +26,16 @@ const Navbar = () => {
         <a href="/form" className="hover:text-[#F5A623] transition-colors">
           Buat Laporan
         </a>
-        <a href="#" className="hover:text-[#F5A623] transition-colors">
+        <a href="/history" className="hover:text-[#F5A623] transition-colors">
           Riwayat
         </a>
         <div className="w-px h-4 bg-white/30 mx-1"></div>
         <a
-          href="/login"
+          href="/profile"
           className="flex items-center gap-2 hover:text-[#F5A623] transition-colors"
         >
           <FiUser className="w-5 h-5" />
-          Profil
+          Profile
         </a>
       </div>
     </nav>
