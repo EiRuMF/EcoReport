@@ -1,14 +1,52 @@
 import React from "react";
+import { useState, setLoading } from "react";
 import { Button } from "@/components/ui/button";
 import { Field, FieldDescription, FieldLabel } from "@/components/ui/field";
 import { Input } from "@/components/ui/input";
 
 const Register = () => {
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [phone_number, setPhone_number] = useState("");
+  const [password, setPassword] = useState("");
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState("");
+
+  async function handleSubmit(e) {
+    e.preventDefault();
+    setLoading(true);
+    setError("");
+
+    try {
+      const res = await fetch(
+        "https://api-ecoreport.vercel.app/auth/register",
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ email, password }),
+        },
+      );
+
+      const data = await res.json();
+
+      if (!res.ok) {
+        setError(data.message || "Gagal membuat");
+        return;
+      }
+
+      window.location.href = "/login";
+    } catch (err) {
+      setError("Error");
+    } finally {
+      setLoading(false);
+    }
+  }
+
   return (
     <div className="w-full h-screen flex justify-center items-center">
       <div>
         <form
-          action=""
+          onSubmit={handleSubmit}
           className="w-[500px] relative items-start bg-white rounded-xl justify-start text-black p-6"
         >
           <h1 className="text-2xl font-extrabold text-[#1E3A8A] text-start mb-5">
@@ -25,6 +63,7 @@ const Register = () => {
               id="input-demo-api-key"
               type="text"
               placeholder="Enter Username"
+              onChange={(e) => setName(e.target.value)}
               className="w-full mb-3 px-3 py-3 border border-black rounded-lg bg-white text-gray-600 placeholder:text-gray-600"
             />
           </Field>
@@ -35,6 +74,7 @@ const Register = () => {
               id="input-demo-api-key"
               type="email"
               placeholder="Enter Email"
+              onChange={(e) => setEmail(e.target.value)}
               className="w-full mb-3 px-3 py-3 border border-black rounded-lg bg-white text-gray-600 placeholder:text-gray-600"
             />
           </Field>
@@ -45,6 +85,7 @@ const Register = () => {
               id="input-demo-api-key"
               type="number"
               placeholder="Enter Phone Number"
+              onChange={(e) => setPhone_number(e.target.value)}
               className="w-full mb-3 px-3 py-3 border border-black rounded-lg bg-white text-gray-600 placeholder:text-gray-600"
             />
           </Field>
@@ -55,14 +96,19 @@ const Register = () => {
               id="input-demo-api-key"
               type="password"
               placeholder="Enter Password"
+              onChange={(e) => setPassword(e.target.value)}
               className="w-full mb-3 px-3 py-3 border border-black rounded-lg bg-white text-gray-600 placeholder:text-gray-600"
             />
           </Field>
 
           <p className="mt-3 text-gray-800 mb-4 text-center">-- Buat Akun --</p>
 
-          <Button type="submit" className="w-full p-6 bg-[#2563EB] text-white">
-            Register
+          <Button
+            type="submit"
+            disabled={loading}
+            className="w-full p-6 bg-[#2563EB] text-white"
+          >
+            {loading ? "Loading..." : "Register"}
           </Button>
         </form>
       </div>

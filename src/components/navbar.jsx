@@ -35,7 +35,7 @@ const Navbar = () => {
           className="flex items-center gap-2 hover:text-[#F5A623] transition-colors"
         >
           <FiUser className="w-5 h-5" />
-          Profil
+          Profile
         </a>
       </div>
     </nav>
