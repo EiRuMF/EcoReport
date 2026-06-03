@@ -16,6 +16,7 @@ const Register = () => {
     e.preventDefault();
     setLoading(true);
     setError("");
+    setSuccess(false);
 
     try {
       const res = await fetch(
@@ -34,7 +35,10 @@ const Register = () => {
         return;
       }
 
-      window.location.href = "/login";
+      setSuccess(true);
+      setTimeout(() => {
+        window.location.href = "/login";
+      }, 2000);
     } catch (err) {
       setError("Error");
     } finally {
