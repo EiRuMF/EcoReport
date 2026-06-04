@@ -3,16 +3,17 @@ import { PanelLeft } from "lucide-react";
 import { Sidebar } from "@/components/Sidebar";
 import Card from "./Card";
 import Backgroundshort from "@/components/backgroundshort";
+import Statistik from "./Statistik";
+import Tabel from "../Laporan/Tabel";
 
 const Index = () => {
   const [sidebarOpen, setSidebarOpen] = useState(true);
 
   return (
-    <div className="flex h-screen w-full">
+    <div className="flex -h-screen w-full">
       <Sidebar isOpen={sidebarOpen} />
 
       <div className="flex flex-col overflow-hidden">
-        {/* Topbar dengan toggle button */}
         <div className="flex items-center gap-2 px-4 py-3">
           <button
             onClick={() => setSidebarOpen(!sidebarOpen)}
@@ -21,11 +22,17 @@ const Index = () => {
             <PanelLeft size={18} />
           </button>
         </div>
-
-        {/* Konten utama */}
-        <div className="flex-1 flex flex-col items-center justify-center gap-8">
+      </div>
+      <div className="flex-1 overflow-y-auto z-10 px-6 pb-12 lg:px-10 sticky">
+        <div className="absolute inset-0 pointer-events-none py-10 -z-10">
           <Backgroundshort />
+        </div>
+
+        <div className="relative z-10 w-full max-w-275 flex flex-col gap-8 justify-center items-center">
           <Card />
+          <div className="mt-6 w-full">
+            <Tabel />
+          </div>
         </div>
       </div>
     </div>
