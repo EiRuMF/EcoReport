@@ -15,8 +15,11 @@ import {
 import { Textarea } from "@/components/ui/textarea";
 import Backgroundshort from "@/components/backgroundshort.jsx";
 import LocationDropdown from "@/components/LocationDropdown";
+import api from "@/api/axios";
 
 const index = () => {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
   const [lokasi, setLokasi] = useState({});
   const [jenisMasalah, setJenisMasalah] = useState("");
   const [deskripsi, setDeskripsi] = useState("");
@@ -24,7 +27,6 @@ const index = () => {
   function handleSubmit(e) {
     e.preventDefault();
 
-    // Data yang dikirim ke BE
     const payload = {
       provinsi_kode: lokasi.provinsi_kode,
       kab_kode: lokasi.kab_kode,
@@ -79,6 +81,15 @@ const index = () => {
 
         <LocationDropdown onChange={setLokasi} className="w-full" />
 
+        <Field className="mb-3">
+          <FieldLabel>Tanggal Kejadian</FieldLabel>
+          <Input
+            type="datetime-local"
+            onChange={(e) => setIncidentDate(e.target.value)}
+            className="w-[300px] px-3 py-3 border border-black rounded-lg bg-white text-gray-600"
+          />
+        </Field>
+
         <Field>
           <FieldLabel htmlFor="input-demo-api-key">
             Keterangan Detail
@@ -86,6 +97,7 @@ const index = () => {
           <Textarea
             id="text"
             placeholder="Type your message here."
+            onChange={(e) => setDescription(e.target.value)}
             className="mb-3 px-3 py-10 border border-black rounded-lg bg-white text-gray-600 placeholder:text-gray-600"
           />
         </Field>
@@ -95,6 +107,7 @@ const index = () => {
           <input
             type="file"
             accept="image/*"
+            onChange={(e) => setFile(e.target.files[0])}
             className="w-10 mb-3 px-3 py-3 border border-black rounded-lg bg-white text-gray-600 placeholder:text-gray-600"
           />
           <FieldDescription>Upload foto bukti laporan</FieldDescription>
@@ -104,7 +117,7 @@ const index = () => {
           type="submit"
           className="mt-10 w-full p-6 bg-[#2563EB] rounded-2xl text-white"
         >
-          Submit
+          {loading ? "Mengirim..." : success ? "Berhasil! ✅" : "Submit"}
         </Button>
       </form>
     </div>
