@@ -1,4 +1,5 @@
 import { createBrowserRouter } from "react-router-dom";
+import ProtectedRoute from "@/components/ProtectedRoute";
 // Layout
 import MainLayout from "@/layout/MainLayout";
 import BlankLayout from "@/layout/BlankLayout";
@@ -11,10 +12,11 @@ import ForgotPassword from "@/pages/Auth/ForgotPassword";
 import LandingPage from "@/pages/LandingPages/LandingPage";
 
 import ProfilePage from "@/pages/Profile/ProfilePage";
+import EventPage from "@/pages/Event pages/EventPage";
+import BlogPage from "@/pages/Blog Pages/BlogPage";
 
-// Form Report
+// Report
 import Form from "@/pages/Form";
-// History
 import History from "@/pages/History/index";
 import HistoryDetail from "@/pages/History/Detail";
 
@@ -22,6 +24,7 @@ import HistoryDetail from "@/pages/History/Detail";
 import HomeAdmin from "@/pages/Admin/Home/Index";
 
 export const router = createBrowserRouter([
+  // Public routes
   {
     element: <BlankLayout />,
     children: [
@@ -31,30 +34,34 @@ export const router = createBrowserRouter([
     ],
   },
 
+  // User routes (harus login, role: user)
   {
-    element: <MainLayout />,
+    element: (
+      <ProtectedRoute requiredRole="2">
+        <MainLayout />
+      </ProtectedRoute>
+    ),
     children: [
       { path: "/", element: <LandingPage /> },
+      { path: "/profil", element: <ProfilePage /> },
       { path: "/profile", element: <ProfilePage /> },
-    ],
-  },
-
-  {
-    element: <MainLayout />,
-    children: [
+      { path: "/event", element: <EventPage /> },
+      { path: "/blog", element: <BlogPage /> },
       { path: "/form", element: <Form /> },
       { path: "/history", element: <History /> },
       { path: "/history/:id", element: <HistoryDetail /> },
     ],
   },
 
-  //Admin
   {
-    element: <AdminLayout />,
+    element: (
+      <ProtectedRoute requiredRole="1">
+        <AdminLayout />
+      </ProtectedRoute>
+    ),
     children: [
       { path: "/admin", element: <HomeAdmin /> },
-      // { path: "/admin/data-laporan", element:  },
-      // { path: "/admin/data-laporan/detail", element:  }
+      // { path: "/admin/laporan/:id", element: <DetailLaporanAdmin /> },
     ],
   },
 ]);

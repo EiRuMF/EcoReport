@@ -34,9 +34,13 @@ const Blog = () => {
               SEBABKAN <br />
               KECELAKAAN
             </h3>
-            <Button className="bg-[#3168FF] hover:bg-blue-700 text-white font-bold py-7 px-10 rounded-full transition-colors text-lg shadow-lg uppercase tracking-wide">
-              Selengkapnya
-            </Button>
+            
+              
+              <a href="/Blog" className="text-white no-underline">
+              <Button className="bg-[#3168FF] hover:bg-blue-700 text-white font-bold py-7 px-10 rounded-xl transition-colors text-lg shadow-lg uppercase tracking-wide">
+                Selengkapnya
+              </Button>
+              </a>
           </div>
         </div>
       </div>
