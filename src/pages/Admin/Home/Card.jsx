@@ -1,7 +1,68 @@
 import React from "react";
+import { useState, useEffect } from "react";
 import { FiFileText, FiCheckCircle, FiXCircle } from "react-icons/fi";
+import api from "@/api/axios";
 
 const Card = () => {
+  const [stats, setStats] = useState({
+    total: 0,
+    pending: 0,
+    processed: 0,
+    completed: 0,
+    cancelled: 0,
+  });
+
+  useEffect(() => {
+    const fetchReports = async () => {
+      try {
+        const token = localStorage.getItem("token");
+
+        const res = await api.get("/api/report", {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
+
+        const reports = res.data;
+
+        setStats({
+          total: reports.length,
+          pending: reports.filter((r) => r.status === "pending").length,
+          processed: reports.filter((r) => r.status === "processed").length,
+          completed: reports.filter((r) => r.status === "completed").length,
+          cancelled: reports.filter((r) => r.status === "cancelled").length,
+        });
+      } catch (err) {
+        console.error(err);
+      }
+    };
+
+    fetchReports();
+  }, []);
+
+  const cards = [
+    {
+      title: "Total Laporan",
+      value: stats.total,
+    },
+    {
+      title: "Pending",
+      value: stats.pending,
+    },
+    {
+      title: "Diproses",
+      value: stats.processed,
+    },
+    {
+      title: "Selesai",
+      value: stats.completed,
+    },
+    {
+      title: "Ditolak",
+      value: stats.cancelled,
+    },
+  ];
+
   return (
     <div className="grid grid-cold-1 md:grid-cols-3 gap-6 mb-6 ">
       <div className="bg-white rounded-[24px] p-6 shadow-xl flex items-center justify-between">
@@ -9,7 +70,9 @@ const Card = () => {
           <p className="text-xs font-bold text-gray-500 mb-1">
             Total Laporan Masuk
           </p>
-          <h2 className="text-2xl font-black text-gray-500 mb-1">1,248</h2>
+          <h2 className="text-2xl font-black text-gray-500 mb-1">
+            {stats.total}
+          </h2>
         </div>
         <div className="w-14 h-14 bg-blue-100 rounded-2xl flex items-center justify-center">
           <FiFileText className="w-7 h-7 text-blue-600" />
@@ -21,7 +84,9 @@ const Card = () => {
           <p className="text-xs font-bold text-gray-500 mb-1">
             Laporan Selesai
           </p>
-          <h2 className="text-3xl font-black text-green-500">1,020</h2>
+          <h2 className="text-3xl font-black text-green-500">
+            {stats.completed}
+          </h2>
         </div>
         <div className="w-14 h-14 bg-green-100 rounded-2xl flex items-center justify-center">
           <FiCheckCircle className="w-7 h-7 text-green-500" />
@@ -33,7 +98,9 @@ const Card = () => {
           <p className="text-xs font-bolc text-gray-500 mb-1">
             Laporan Ditolak
           </p>
-          <h2 className="text-3xl font-black text-red-500">42</h2>
+          <h2 className="text-3xl font-black text-red-500">
+            {stats.cancelled}
+          </h2>
         </div>
         <div className="w-14 h-14 bg-red-100 rounded-2xl flex items-center justify-center">
           <FiXCircle className="w-7 h-7 text-red-500" />

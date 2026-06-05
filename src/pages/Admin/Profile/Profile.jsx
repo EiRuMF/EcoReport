@@ -31,11 +31,9 @@ const ProfilePage = () => {
         const token = localStorage.getItem("token");
         const headers = { Authorization: `Bearer ${token}` };
 
-        // Ambil data user (nama, email, phone, role)
         const meRes = await api.get("/api/auth/me", { headers });
         const me = meRes.data;
 
-        // Ambil data profile (bio, foto)
         const profileRes = await api.get("/api/profile", { headers });
         const prof = profileRes.data;
 
