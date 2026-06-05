@@ -35,10 +35,12 @@ const HeroSection = () => {
             ))}
           </div>
 
-          <Button className="bg-[#3168FF] hover:bg-blue-700 text-white font-bold py-8 px-8 rounded-full flex items-center gap-3 transition-colors text-lg shadow-lg shadow-blue-500/30">
-            Laporkan
-            <FiSend className="w-6 h-6" />
-          </Button>
+          <a href="/form">
+            <Button className="bg-[#3168FF] hover:bg-blue-700 text-white font-bold py-8 px-8 rounded-xl flex items-center gap-3 transition-colors text-lg shadow-lg shadow-blue-500/30">
+              Laporkan
+              <FiSend className="w-6 h-6" />
+            </Button>
+          </a>
         </div>
 
         {/* logo */}

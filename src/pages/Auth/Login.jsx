@@ -25,6 +25,7 @@ const Login = () => {
         password,
       });
       localStorage.setItem("token", res.data.token);
+      localStorage.setItem("role", String(res.data.user.role));
 
       console.log("Response:", res.data);
       setSuccess(true);
@@ -58,17 +59,6 @@ const Login = () => {
             Halo!, Selamat datang mari lestarikan lingkungan kita
           </p>
           <p className="text-gray-500 mb-3">Go Green</p>
-
-          {error && (
-            <p className="mb-3 text-sm text-red-500 bg-red-50 border border-red-200 rounded-lg px-3 py-2">
-              ❌ {error}
-            </p>
-          )}
-          {success && (
-            <p className="mb-3 text-sm text-green-600 bg-green-50 border border-green-200 rounded-lg px-3 py-2">
-              ✅ Akun berhasil dibuat! Mengarahkan ke halaman login...
-            </p>
-          )}
 
           <Field>
             <FieldLabel htmlFor="input-name">Email</FieldLabel>

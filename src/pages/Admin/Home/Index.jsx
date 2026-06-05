@@ -1,31 +1,59 @@
 import { useState } from "react";
-import { PanelLeft } from "lucide-react";
-import { Sidebar } from "@/components/Sidebar";
+
 import Card from "./Card";
 import Backgroundshort from "@/components/backgroundshort";
+import Statistik from "./Statistik";
+import TabelLaporan from "../Laporan/Tabel";
+import TabelCategory from "../Category/Tabel";
+import { FiUser } from "react-icons/fi";
+
+const getStatusStyle = (status) => {
+  switch (status) {
+    case "Done":
+      return "bg-green-100 text-green-700";
+    case "Cancel":
+      return "bg-red-100 text-red-700";
+    case "Inprogress":
+      return "bg-orange-100 text-orange-700";
+    case "Pending":
+      return "bg-blue-100 text-blue-700";
+    default:
+      return "bg-gray-100 text-gray-700";
+  }
+};
 
 const Index = () => {
-  const [sidebarOpen, setSidebarOpen] = useState(true);
-
   return (
-    <div className="flex h-screen w-full">
-      <Sidebar isOpen={sidebarOpen} />
+    <div className="flex items-center justify-center overflow-y-hidden min-h-screen w-full">
+      <div className="absolute inset-0 pointer-events-none py-10 z-10">
+        <Backgroundshort />
+      </div>
 
-      <div className="flex flex-col overflow-hidden">
-        {/* Topbar dengan toggle button */}
-        <div className="flex items-center gap-2 px-4 py-3">
-          <button
-            onClick={() => setSidebarOpen(!sidebarOpen)}
-            className="p-5 border border-black rounded-lg hover:bg-neutral-800 text-white hover:text-white"
+      <div className="relative z-10 w-full max-w-400 flex flex-col gap-8 mt-10">
+        {" "}
+        <div className="hidden md:flex max-w-64 items-center gap-6 px-8 py-3 bg-white/10 backdrop-blur-md rounded-full shadow-sm text-sm font-semibold text-white border border-white/10">
+          <a href="/admin" className="hover:text-[#F5A623] transition-colors">
+            Beranda
+          </a>
+          <div className="w-px h-4 bg-white/30 mx-1"></div>
+          <a
+            href="/profile-admin"
+            className="flex items-center gap-2 hover:text-[#F5A623] transition-colors"
           >
-            <PanelLeft size={18} />
-          </button>
+            <FiUser className="w-5 h-5" />
+            Profile
+          </a>
         </div>
-
-        {/* Konten utama */}
-        <div className="flex-1 flex flex-col items-center justify-center gap-8">
-          <Backgroundshort />
+        <div>
           <Card />
+        </div>
+        {/* Tabel Laporan */}
+        <div className="mt-6 w-full">
+          <TabelLaporan />
+        </div>
+        {/* Tabel Category */}
+        <div className="mt-6 mb-10 w-full">
+          <TabelCategory />
         </div>
       </div>
     </div>

@@ -36,9 +36,13 @@ const Event = () => {
             </div>
           </div>
 
-          <Button className="bg-[#3168FF] hover:bg-blue-700 text-white font-['Bebas_Neue'] text-2xl py-7 px-10 rounded-full transition-colors shadow-lg w-full md:w-auto tracking-widest">
-            Daftar Sekarang!
-          </Button>
+          
+            <a href="/event" className="text-white no-underline">
+            <Button className="bg-[#3168FF] hover:bg-blue-700 text-white font-['Bebas_Neue'] text-2xl py-7 px-10 rounded-xl transition-colors shadow-lg w-full md:w-auto tracking-widest">
+              Daftar Sekarang!
+            </Button>
+            </a>
+          
         </div>
       </div>
     </section>
