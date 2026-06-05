@@ -5,6 +5,7 @@ import Backgroundshort from "@/components/backgroundshort";
 import Statistik from "./Statistik";
 import TabelLaporan from "../Laporan/Tabel";
 import TabelCategory from "../Category/Tabel";
+import { FiUser } from "react-icons/fi";
 
 const getStatusStyle = (status) => {
   switch (status) {
@@ -29,11 +30,23 @@ const Index = () => {
       </div>
 
       <div className="relative z-10 w-full max-w-400 flex flex-col gap-8 mt-10">
-        <div></div>
+        {" "}
+        <div className="hidden md:flex max-w-64 items-center gap-6 px-8 py-3 bg-white/10 backdrop-blur-md rounded-full shadow-sm text-sm font-semibold text-white border border-white/10">
+          <a href="/admin" className="hover:text-[#F5A623] transition-colors">
+            Beranda
+          </a>
+          <div className="w-px h-4 bg-white/30 mx-1"></div>
+          <a
+            href="/profile-admin"
+            className="flex items-center gap-2 hover:text-[#F5A623] transition-colors"
+          >
+            <FiUser className="w-5 h-5" />
+            Profile
+          </a>
+        </div>
         <div>
           <Card />
         </div>
-
         {/* Tabel Laporan */}
         <div className="mt-6 w-full">
           <TabelLaporan />

@@ -15,7 +15,7 @@ const ProtectedRoute = ({ children, requiredRole }) => {
         const res = await api.get("/api/me", {
           headers: { Authorization: `Bearer ${token}` },
         });
-        const fetchedRole = String(res.data.role); 
+        const fetchedRole = String(res.data.role);
         localStorage.setItem("role", fetchedRole);
         setRole(fetchedRole);
       } catch (err) {
@@ -38,7 +38,6 @@ const ProtectedRoute = ({ children, requiredRole }) => {
     );
   if (!role) return <Navigate to="/login" replace />;
 
-  
   if (requiredRole && role !== requiredRole) {
     return <Navigate to={role === "1" ? "/admin" : "/"} replace />;
   }

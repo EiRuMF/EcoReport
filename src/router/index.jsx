@@ -15,13 +15,16 @@ import ProfilePage from "@/pages/Profile/ProfilePage";
 import EventPage from "@/pages/Event pages/EventPage";
 import BlogPage from "@/pages/Blog Pages/BlogPage";
 
-// Report
+// Form Report
 import Form from "@/pages/Form";
+// History
 import History from "@/pages/History/index";
 import HistoryDetail from "@/pages/History/Detail";
 
 // Admin
 import HomeAdmin from "@/pages/Admin/Home/Index";
+
+import AdminProfilePage from "@/pages/Admin/Profile/Profile";
 
 export const router = createBrowserRouter([
   // Public routes
@@ -43,7 +46,6 @@ export const router = createBrowserRouter([
     ),
     children: [
       { path: "/", element: <LandingPage /> },
-      { path: "/profil", element: <ProfilePage /> },
       { path: "/profile", element: <ProfilePage /> },
       { path: "/event", element: <EventPage /> },
       { path: "/blog", element: <BlogPage /> },
@@ -61,6 +63,7 @@ export const router = createBrowserRouter([
     ),
     children: [
       { path: "/admin", element: <HomeAdmin /> },
+      { path: "/profile-admin", element: <AdminProfilePage /> },
       // { path: "/admin/laporan/:id", element: <DetailLaporanAdmin /> },
     ],
   },

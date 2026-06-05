@@ -60,6 +60,19 @@ const Tabel = () => {
     }
   }
 
+  async function handleDelete(id) {
+    if (!confirm("Yakin ingin menghapus kategori ini?")) return;
+    try {
+      const token = localStorage.getItem("token");
+      await api.delete(`/api/category/${id}`, {
+        headers: { Authorization: `Bearer ${token}` },
+      });
+      fetchCategories();
+    } catch (err) {
+      setError(err.response?.data?.message || "Gagal menghapus kategori");
+    }
+  }
+
   return (
     <div className="bg-white rounded-xl p-8 md:p-10 shadow-xl flex flex-col w-full">
       <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-6">
@@ -80,6 +93,7 @@ const Tabel = () => {
               <th className="pb-4 pr-6 font-bold text-gray-800 w-[35%]">
                 Deskripsi
               </th>
+              <th className="pb-4 font-bold text-gray-800 w-[10%]">Delete</th>
             </tr>
           </thead>
           <tbody>
@@ -91,6 +105,14 @@ const Tabel = () => {
                 <td className="py-4 font-bold text-gray-900">{index + 1}</td>
                 <td className="py-4 text-gray-600">{item.name}</td>
                 <td className="py-4 text-gray-600">{item.description}</td>
+                <td className="py-4">
+                  <button
+                    onClick={() => handleDelete(item.id)}
+                    className="bg-red-50 hover:bg-red-100 text-red-600 font-bold px-3 py-1.5 rounded-lg text-xs transition-colors"
+                  >
+                    Hapus
+                  </button>
+                </td>
               </tr>
             ))}
           </tbody>
