@@ -10,4 +10,13 @@ export default defineConfig({
       "@": path.resolve(__dirname, "./src"),
     },
   },
+  server: {
+    proxy: {
+      "/api": {
+        target: "https://api-ecoreport.vercel.app",
+        changeOrigin: true,
+        secure: true,
+      },
+    },
+  },
 });

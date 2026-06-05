@@ -3,38 +3,42 @@ import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Field, FieldDescription, FieldLabel } from "@/components/ui/field";
 import { Input } from "@/components/ui/input";
+import api from "@/api/axios";
 
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
+  const [success, setSuccess] = useState(false);
 
   async function handleSubmit(e) {
     e.preventDefault();
+
     setLoading(true);
     setError("");
+    setSuccess(false);
 
     try {
       const res = await api.post("/api/auth/login", {
-        name,
         email,
-        phone_number,
         password,
       });
+      localStorage.setItem("token", res.data.token);
 
-      const data = await res.json();
-
-      if (!res.ok) {
-        setError(data.message || "Email atau password salah");
-        return;
-      }
-
-      localStorage.setItem("token", data.token);
-      localStorage.setItem("user", JSON.stringify(data.user));
-      window.location.href = "/";
+      console.log("Response:", res.data);
+      setSuccess(true);
+      setTimeout(() => {
+        window.location.href = "/";
+      }, 2000);
     } catch (err) {
-      setError("Error");
+      console.log("Error:", err);
+
+      if (err.response) {
+        setError(err.response.data.message || "Gagal login");
+      } else {
+        setError("Tidak dapat terhubung ke server");
+      }
     } finally {
       setLoading(false);
     }
@@ -55,10 +59,21 @@ const Login = () => {
           </p>
           <p className="text-gray-500 mb-3">Go Green</p>
 
+          {error && (
+            <p className="mb-3 text-sm text-red-500 bg-red-50 border border-red-200 rounded-lg px-3 py-2">
+              ❌ {error}
+            </p>
+          )}
+          {success && (
+            <p className="mb-3 text-sm text-green-600 bg-green-50 border border-green-200 rounded-lg px-3 py-2">
+              ✅ Akun berhasil dibuat! Mengarahkan ke halaman login...
+            </p>
+          )}
+
           <Field>
-            <FieldLabel htmlFor="input-demo-api-key">Email</FieldLabel>
+            <FieldLabel htmlFor="input-name">Email</FieldLabel>
             <Input
-              id="input-demo-api-key"
+              id="input-name"
               type="email"
               placeholder="Enter Email/Phone No"
               onChange={(e) => setEmail(e.target.value)}
@@ -67,9 +82,9 @@ const Login = () => {
           </Field>
 
           <Field>
-            <FieldLabel htmlFor="input-demo-api-key">Password</FieldLabel>
+            <FieldLabel htmlFor="input-password">Password</FieldLabel>
             <Input
-              id="input-demo-api-key"
+              id="input-password"
               type="password"
               placeholder="Enter Password"
               onChange={(e) => setPassword(e.target.value)}

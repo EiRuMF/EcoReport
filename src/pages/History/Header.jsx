@@ -1,6 +1,6 @@
 import React from "react";
 
-const Header = () => {
+const Header = ({ total }) => {
   return (
     <div className="w-[1200px] flex relative items-start bg-white rounded-xl justify-between p-10  font-poppins">
       <div>
@@ -15,7 +15,7 @@ const Header = () => {
         <p className="text-md text-start text-[#1E3A8A] font-semibold">
           Total Laporan Anda
         </p>
-        <p className=" text-4xl font-bold text-[#1E3A8A]">3</p>
+        <p className=" text-4xl font-bold text-[#1E3A8A]">{total}</p>
       </div>
     </div>
   );

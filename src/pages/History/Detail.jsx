@@ -1,6 +1,6 @@
 import React from "react";
-import { useState, useEffect } from "react";
-import { Button } from "@/components/ui/button";
+import { useState } from "react";
+import Backgroundshort from "@/components/backgroundshort";
 import { Field, FieldDescription, FieldLabel } from "@/components/ui/field";
 import { Input } from "@/components/ui/input";
 import {
@@ -12,14 +12,10 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { Textarea } from "@/components/ui/textarea";
-import Backgroundshort from "@/components/backgroundshort.jsx";
 import LocationDropdown from "@/components/LocationDropdown";
+import { Textarea } from "@/components/ui/textarea";
 
-// Buat BE
-import api from "@/api/axios";
-
-const index = () => {
+const Detail = () => {
   const [lokasi, setLokasi] = useState({});
   const [jenisMasalah, setJenisMasalah] = useState("");
   const [category, setCategory] = useState("");
@@ -35,106 +31,10 @@ const index = () => {
   const [categories, setCategories] = useState([]);
   const [loadingCat, setLoadingCat] = useState(true);
 
-  useEffect(() => {
-    async function fetchCategories() {
-      try {
-        const token = localStorage.getItem("token");
-        const res = await api.get("/api/category", {
-          headers: { Authorization: `Bearer ${token}` },
-        });
-        setCategories(res.data);
-      } catch (err) {
-        console.log("Gagal fetch kategori:", err);
-      } finally {
-        setLoadingCat(false);
-      }
-    }
-    fetchCategories();
-  }, []);
-
-  async function handleSubmit(e) {
-    e.preventDefault();
-
-    if (!category) {
-      setError("Kategori tidak boleh kosong");
-      return;
-    }
-    if (!title.trim()) {
-      setError("Judul tidak boleh kosong");
-      return;
-    }
-    if (!description.trim()) {
-      setError("Deskripsi tidak boleh kosong");
-      return;
-    }
-    if (!lokasi.provinsi_nama) {
-      setError("Pilih provinsi!");
-      return;
-    }
-    if (!lokasi.kab_nama) {
-      setError("Pilih kota/kabupaten!");
-      return;
-    }
-    if (!lokasi.kec_nama) {
-      setError("Pilih kecamatan@");
-      return;
-    }
-    if (!lokasi.desa_nama) {
-      setError("Pilih desa!");
-      return;
-    }
-    if (!incidentDate) {
-      setError("Tanggal kejadian tidak boleh kosong");
-      return;
-    }
-
-    setLoading(true);
-    setError("");
-    setSuccess(false);
-
-    try {
-      const formData = new FormData();
-      formData.append("category", category);
-      formData.append("title", title);
-      formData.append("description", description);
-      formData.append("provinsi", lokasi.provinsi_nama);
-      formData.append("kabupaten", lokasi.kab_nama);
-      formData.append("kecamatan", lokasi.kec_nama);
-      formData.append("desa", lokasi.desa_nama);
-      formData.append("incident_date", new Date(incidentDate).toISOString());
-      if (file) formData.append("attachments", file);
-
-      const token = localStorage.getItem("token");
-      const res = await api.post("/api/report", formData, {
-        headers: {
-          "Content-Type": "multipart/form-data",
-          Authorization: `Bearer ${token}`,
-        },
-      });
-
-      console.log("Berhasil:", res.data);
-      setSuccess(true);
-      setTimeout(() => {
-        window.location.href = "/history";
-      }, 2000);
-    } catch (err) {
-      if (err.response) {
-        setError(err.response.data.message || "Gagal membuat laporan");
-      } else {
-        setError("Tidak dapat terhubung ke server");
-      }
-    } finally {
-      setLoading(false);
-    }
-  }
-
   return (
     <div>
       <Backgroundshort />
-      <form
-        onSubmit={handleSubmit}
-        className="w-300  min-h-screen relative items-start bg-white rounded-xl justify-start text-black p-6"
-      >
+      <form className="w-300  min-h-screen relative items-start bg-white rounded-xl justify-start text-black p-6">
         <div className="text-start font-poppins mb-5">
           <h1 className="font-bebas text-4xl text-[#1E3A8A]">
             Buat Laporan Baru
@@ -143,17 +43,6 @@ const index = () => {
             Laporkan masalah yang anda temui agar segera ditangani{" "}
           </p>
         </div>
-
-        {error && (
-          <p className="mb-3 text-sm text-red-500 bg-red-50 border border-red-200 rounded-lg px-3 py-2">
-            ❌ {error}
-          </p>
-        )}
-        {success && (
-          <p className="mb-3 text-sm text-green-600 bg-green-50 border border-green-200 rounded-lg px-3 py-2">
-            ✅ Laporan berhasil dibuat!
-          </p>
-        )}
 
         <Field className="mb-3">
           <FieldLabel>Judul Laporan</FieldLabel>
@@ -221,16 +110,9 @@ const index = () => {
           />
           <FieldDescription>Upload foto bukti laporan</FieldDescription>
         </Field>
-
-        <Button
-          type="submit"
-          className="mt-10 w-full p-6 bg-[#2563EB] rounded-2xl text-white"
-        >
-          {loading ? "Mengirim..." : success ? "Berhasil! ✅" : "Submit"}
-        </Button>
       </form>
     </div>
   );
 };
 
-export default index;
+export default Detail;

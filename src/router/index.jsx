@@ -9,11 +9,16 @@ import Login from "@/pages/Auth/Login";
 import Register from "@/pages/Auth/Register";
 import ForgotPassword from "@/pages/Auth/ForgotPassword";
 import LandingPage from "@/pages/LandingPages/LandingPage";
-import Form from "@/pages/Form";
+
 import ProfilePage from "@/pages/Profile/ProfilePage";
 import EventPage from "@/pages/Event pages/EventPage";
 import BlogPage from "@/pages/Blog Pages/BlogPage";
+
+// Form Report
+import Form from "@/pages/Form";
+// History
 import History from "@/pages/History/index";
+import HistoryDetail from "@/pages/History/Detail";
 
 // Admin
 import HomeAdmin from "@/pages/Admin/Home/Index";
@@ -44,6 +49,7 @@ export const router = createBrowserRouter([
     children: [
       { path: "/form", element: <Form /> },
       { path: "/history", element: <History /> },
+      { path: "/history/:id", element: <HistoryDetail /> },
     ],
   },
 

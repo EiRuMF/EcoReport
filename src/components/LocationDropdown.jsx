@@ -12,75 +12,95 @@ import {
 import { Field, FieldDescription, FieldLabel } from "@/components/ui/field";
 
 export default function LocationDropdown({ onChange }) {
-  const [selectedProv, setSelectedProv] = useState("");
-  const [selectedKab, setSelectedKab] = useState("");
-  const [selectedKec, setSelectedKec] = useState("");
-  const [selectedDesa, setSelectedDesa] = useState("");
+  const [selectedProv, setSelectedProv] = useState({ kode: "", nama: "" });
+  const [selectedKab, setSelectedKab] = useState({ kode: "", nama: "" });
+  const [selectedKec, setSelectedKec] = useState({ kode: "", nama: "" });
+  const [selectedDesa, setSelectedDesa] = useState({ kode: "", nama: "" });
 
   const listProvinsi = provinsi();
-  const listKabupaten = selectedProv ? kabupaten(selectedProv) : [];
-  const listKecamatan = selectedKab ? kecamatan(selectedKab) : [];
-  const listDesa = selectedKec ? desa(selectedKec) : [];
+  const listKabupaten = selectedProv.kode ? kabupaten(selectedProv.kode) : [];
+  const listKecamatan = selectedKab.kode ? kecamatan(selectedKab.kode) : [];
+  const listDesa = selectedKec.kode ? desa(selectedKec.kode) : [];
 
   function handleProvinsi(kode) {
-    setSelectedProv(kode);
-    setSelectedKab("");
-    setSelectedKec("");
-    setSelectedDesa("");
+    const nama = listProvinsi.find((p) => p.kode === kode)?.nama || "";
+    setSelectedProv({ kode, nama });
+    setSelectedKab({ kode: "", nama: "" });
+    setSelectedKec({ kode: "", nama: "" });
+    setSelectedDesa({ kode: "", nama: "" });
     onChange?.({
       provinsi_kode: kode,
+      provinsi_nama: nama,
       kab_kode: "",
+      kab_nama: "",
       kec_kode: "",
+      kec_nama: "",
       desa_kode: "",
+      desa_nama: "",
     });
   }
 
   function handleKabupaten(kode) {
-    setSelectedKab(kode);
-    setSelectedKec("");
-    setSelectedDesa("");
+    const nama = listKabupaten.find((k) => k.kode === kode)?.nama || "";
+    setSelectedKab({ kode, nama });
+    setSelectedKec({ kode: "", nama: "" });
+    setSelectedDesa({ kode: "", nama: "" });
     onChange?.({
-      provinsi_kode: selectedProv,
+      provinsi_kode: selectedProv.kode,
+      provinsi_nama: selectedProv.nama,
       kab_kode: kode,
+      kab_nama: nama,
       kec_kode: "",
+      kec_nama: "",
       desa_kode: "",
+      desa_nama: "",
     });
   }
 
   function handleKecamatan(kode) {
-    setSelectedKec(kode);
-    setSelectedDesa("");
+    const nama = listKecamatan.find((k) => k.kode === kode)?.nama || "";
+    setSelectedKec({ kode, nama });
+    setSelectedDesa({ kode: "", nama: "" });
     onChange?.({
-      provinsi_kode: selectedProv,
-      kab_kode: selectedKab,
+      provinsi_kode: selectedProv.kode,
+      provinsi_nama: selectedProv.nama,
+      kab_kode: selectedKab.kode,
+      kab_nama: selectedKab.nama,
       kec_kode: kode,
+      kec_nama: nama,
       desa_kode: "",
+      desa_nama: "",
     });
   }
 
   function handleDesa(kode) {
-    setSelectedDesa(kode);
+    const nama = listDesa.find((d) => d.kode === kode)?.nama || "";
+    setSelectedDesa({ kode, nama });
     onChange?.({
-      provinsi_kode: selectedProv,
-      kab_kode: selectedKab,
-      kec_kode: selectedKec,
+      provinsi_kode: selectedProv.kode,
+      provinsi_nama: selectedProv.nama,
+      kab_kode: selectedKab.kode,
+      kab_nama: selectedKab.nama,
+      kec_kode: selectedKec.kode,
+      kec_nama: selectedKec.nama,
       desa_kode: kode,
+      desa_nama: nama,
     });
   }
 
   return (
-    <div className="flex flex-row justify-between w-full gap-x-8">
+    <div className="flex flex-row justify-between  w-full gap-x-8">
       <div className="w-full">
         <div>
           <FieldLabel htmlFor="input-demo-api-key" className="mb-2">
             Provinsi
           </FieldLabel>
-          <Select value={selectedProv} onValueChange={handleProvinsi}>
+          <Select value={selectedProv.kode} onValueChange={handleProvinsi}>
             <SelectTrigger className="w-full px-3 py-6 border border-black rounded-lg bg-white text-gray-600">
               <SelectValue placeholder="— Pilih Provinsi —" />
             </SelectTrigger>
             <SelectContent>
-              <SelectGroup>
+              <SelectGroup className="max-h-72 overflow-y-auto">
                 <SelectLabel>Provinsi</SelectLabel>
                 {listProvinsi.map((p) => (
                   <SelectItem key={p.kode} value={p.kode}>
@@ -93,11 +113,11 @@ export default function LocationDropdown({ onChange }) {
         </div>
 
         <div>
-          <FieldLabel htmlFor="input-demo-api-key" className="mb-2">
+          <FieldLabel htmlFor="input-demo-api-key" className="mb-2 mt-3">
             Kota / Kabupaten
           </FieldLabel>
           <Select
-            value={selectedKab}
+            value={selectedKab.kode}
             onValueChange={handleKabupaten}
             disabled={!selectedProv}
           >
@@ -105,7 +125,7 @@ export default function LocationDropdown({ onChange }) {
               <SelectValue placeholder="— Pilih Kota/Kabupaten —" />
             </SelectTrigger>
             <SelectContent>
-              <SelectGroup>
+              <SelectGroup className="max-h-72 overflow-y-auto">
                 <SelectLabel>Kota / Kabupaten</SelectLabel>
                 {listKabupaten.map((k) => (
                   <SelectItem key={k.kode} value={k.kode}>
@@ -124,7 +144,7 @@ export default function LocationDropdown({ onChange }) {
             Kecamatan
           </FieldLabel>
           <Select
-            value={selectedKec}
+            value={selectedKec.kode}
             onValueChange={handleKecamatan}
             disabled={!selectedKab}
           >
@@ -132,7 +152,7 @@ export default function LocationDropdown({ onChange }) {
               <SelectValue placeholder="— Pilih Kecamatan —" />
             </SelectTrigger>
             <SelectContent>
-              <SelectGroup>
+              <SelectGroup className="max-h-72 overflow-y-auto">
                 <SelectLabel>Kecamatan</SelectLabel>
                 {listKecamatan.map((k) => (
                   <SelectItem key={k.kode} value={k.kode}>
@@ -145,11 +165,11 @@ export default function LocationDropdown({ onChange }) {
         </div>
 
         <div>
-          <FieldLabel htmlFor="input-demo-api-key" className="mb-2">
+          <FieldLabel htmlFor="input-demo-api-key" className="mb-2 mt-3">
             Desa / Kelurahan
           </FieldLabel>
           <Select
-            value={selectedDesa}
+            value={selectedDesa.kode}
             onValueChange={handleDesa}
             disabled={!selectedKec}
           >
@@ -157,7 +177,7 @@ export default function LocationDropdown({ onChange }) {
               <SelectValue placeholder="— Pilih Desa/Kelurahan —" />
             </SelectTrigger>
             <SelectContent>
-              <SelectGroup>
+              <SelectGroup className="max-h-72 overflow-y-auto">
                 <SelectLabel>Desa / Kelurahan</SelectLabel>
                 {listDesa.map((d) => (
                   <SelectItem key={d.kode} value={d.kode}>
