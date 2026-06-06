@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Field, FieldDescription, FieldLabel } from "@/components/ui/field";
 import { Input } from "@/components/ui/input";
 import api from "@/api/axios";
+import Backgroundshort from "@/components/backgroundshort";
 
 const Login = () => {
   const [email, setEmail] = useState("");
@@ -47,6 +48,7 @@ const Login = () => {
 
   return (
     <div className="w-full h-screen flex justify-center items-center">
+      <Backgroundshort />
       <div>
         <form
           onSubmit={handleSubmit}

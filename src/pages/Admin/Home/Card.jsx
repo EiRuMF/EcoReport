@@ -6,10 +6,8 @@ import api from "@/api/axios";
 const Card = () => {
   const [stats, setStats] = useState({
     total: 0,
-    pending: 0,
-    processed: 0,
-    completed: 0,
-    cancelled: 0,
+    resolved: 0,
+    rejected: 0,
   });
 
   useEffect(() => {
@@ -27,10 +25,8 @@ const Card = () => {
 
         setStats({
           total: reports.length,
-          pending: reports.filter((r) => r.status === "pending").length,
-          processed: reports.filter((r) => r.status === "processed").length,
-          completed: reports.filter((r) => r.status === "completed").length,
-          cancelled: reports.filter((r) => r.status === "cancelled").length,
+          resolved: reports.filter((r) => r.status === "resolved").length,
+          rejected: reports.filter((r) => r.status === "rejected").length,
         });
       } catch (err) {
         console.error(err);
@@ -39,29 +35,6 @@ const Card = () => {
 
     fetchReports();
   }, []);
-
-  const cards = [
-    {
-      title: "Total Laporan",
-      value: stats.total,
-    },
-    {
-      title: "Pending",
-      value: stats.pending,
-    },
-    {
-      title: "Diproses",
-      value: stats.processed,
-    },
-    {
-      title: "Selesai",
-      value: stats.completed,
-    },
-    {
-      title: "Ditolak",
-      value: stats.cancelled,
-    },
-  ];
 
   return (
     <div className="grid grid-cold-1 md:grid-cols-3 gap-6 mb-6 ">
@@ -85,7 +58,7 @@ const Card = () => {
             Laporan Selesai
           </p>
           <h2 className="text-3xl font-black text-green-500">
-            {stats.completed}
+            {stats.resolved}
           </h2>
         </div>
         <div className="w-14 h-14 bg-green-100 rounded-2xl flex items-center justify-center">
@@ -98,9 +71,7 @@ const Card = () => {
           <p className="text-xs font-bolc text-gray-500 mb-1">
             Laporan Ditolak
           </p>
-          <h2 className="text-3xl font-black text-red-500">
-            {stats.cancelled}
-          </h2>
+          <h2 className="text-3xl font-black text-red-500">{stats.rejected}</h2>
         </div>
         <div className="w-14 h-14 bg-red-100 rounded-2xl flex items-center justify-center">
           <FiXCircle className="w-7 h-7 text-red-500" />

@@ -23,8 +23,8 @@ import HistoryDetail from "@/pages/History/Detail";
 
 // Admin
 import HomeAdmin from "@/pages/Admin/Home/Index";
-
 import AdminProfilePage from "@/pages/Admin/Profile/Profile";
+import DetailLaporanAdmin from "@/pages/Admin/Laporan/DetailLaporan";
 
 export const router = createBrowserRouter([
   // Public routes
@@ -64,7 +64,7 @@ export const router = createBrowserRouter([
     children: [
       { path: "/admin", element: <HomeAdmin /> },
       { path: "/profile-admin", element: <AdminProfilePage /> },
-      // { path: "/admin/laporan/:id", element: <DetailLaporanAdmin /> },
+      { path: "/admin/laporan/:id", element: <DetailLaporanAdmin /> },
     ],
   },
 ]);

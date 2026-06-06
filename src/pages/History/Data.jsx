@@ -3,9 +3,9 @@ import { Button } from "@/components/ui/button";
 import { useNavigate } from "react-router-dom";
 
 const statusStyle = {
-  pending: { bg: "bg-[#FEF9C3]", text: "text-[#A16207]", label: "Menunggu" },
-  processed: { bg: "bg-[#DBEAFE]", text: "text-[#1D4ED8]", label: "Diproses" },
-  completed: { bg: "bg-[#DCFCE7]", text: "text-[#15803D]", label: "Selesai" },
+  pending: { bg: "bg-yellow-100", text: "text-yellow-700", label: "Proses" },
+  resolved: { bg: "bg-green-100", text: "text-green-700", label: "Approved" },
+  rejected: { bg: "bg-red-100", text: "text-red-700", label: "Declined" },
 };
 
 const Data = ({ data }) => {
