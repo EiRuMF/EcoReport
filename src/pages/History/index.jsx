@@ -31,7 +31,7 @@ const Index = () => {
     <div className="flex flex-col gap-y-8 items-center justify-center">
       <Backgroundshort className="z-10" />
 
-      <Header className="z-50" />
+      <Header className="z-50" total={laporan.length} />
 
       <div className=" w-full grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         {laporan.map((item) => (

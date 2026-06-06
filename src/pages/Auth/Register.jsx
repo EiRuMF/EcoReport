@@ -3,6 +3,7 @@ import { Button } from "@/components/ui/button";
 import { Field, FieldLabel } from "@/components/ui/field";
 import { Input } from "@/components/ui/input";
 import api from "../../api/axios";
+import Backgroundshort from "@/components/backgroundshort";
 
 const Register = () => {
   const [name, setName] = useState("");
@@ -74,6 +75,7 @@ const Register = () => {
 
   return (
     <div className="w-full h-screen flex justify-center items-center">
+      <Backgroundshort />
       <div>
         <form
           onSubmit={handleSubmit}
@@ -151,6 +153,15 @@ const Register = () => {
           >
             {loading ? "Loading..." : success ? "Berhasil! ✅" : "Register"}
           </Button>
+          <p className="mt-3 text-gray-500">
+            Sudah punya akun?{" "}
+            <a href="/login">
+              <span className="text-blue-500 hover:text-[#2563EB] hover:font-semibold relative inline-block after:content-[''] after:absolute after:left-0 after:-bottom-1 after:h-[2px] after:w-full after:bg-[#2563EB] after:scale-x-0 after:origin-left after:transition-transform after:duration-300 hover:after:scale-x-100">
+                Login
+              </span>
+            </a>{" "}
+            Disini
+          </p>
         </form>
       </div>
     </div>

@@ -5,23 +5,20 @@ import api from "@/api/axios";
 
 const getStatusStyle = (status) => {
   switch (status) {
-    case "completed":
+    case "resolved":
       return "bg-green-100 text-green-700";
-    case "cancelled":
+    case "rejected":
       return "bg-red-100 text-red-700";
-    case "processed":
-      return "bg-orange-100 text-orange-700";
     case "pending":
-      return "bg-blue-100 text-blue-700";
+      return "bg-yellow-100 text-yellow-700";
     default:
       return "bg-gray-100 text-gray-700";
   }
 };
 
 const statusLabel = {
-  completed: "Done",
-  cancelled: "Cancel",
-  processed: "Inprogress",
+  resolved: "Approved",
+  rejected: "Decline",
   pending: "Pending",
 };
 
